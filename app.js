@@ -1,5 +1,5 @@
 // Require packages
-const express = require('express')
+/*const express = require('express')
 const session = require('express-session')
 const redis = require('redis')
 const client =
@@ -96,3 +96,48 @@ app.use(routes)
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`)
 })
+*/
+
+// Load environment variables
+require('dotenv').config();
+
+// Import necessary modules
+const express = require('express');
+const session = require('express-session');
+const mongoose = require('mongoose');
+
+// Create an Express app
+const app = express();
+
+// Middleware setup
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'default_secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+}));
+
+// Database connection
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/todo-list"; // Default for local testing
+mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+// Error handling for DB connection
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+    console.log('MongoDB connected!');
+});
+
+// Define your routes here
+// app.use('/your-route', yourRouteHandler);
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`App is running on http://localhost:${PORT}`);
+});

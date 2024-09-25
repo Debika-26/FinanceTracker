@@ -1,7 +1,7 @@
 // Require related packages
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const FacebookStrategy = require('passport-facebook').Strategy
+//const FacebookStrategy = require('passport-facebook').Strategy
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 
 const bcrypt = require('bcryptjs')
@@ -39,7 +39,7 @@ module.exports = app => {
   )
 
   // Set up facebook strategy
-  passport.use(
+  /*passport.use(
     new FacebookStrategy(
       {
         clientID: process.env.FACEBOOK_ID,
@@ -77,9 +77,9 @@ module.exports = app => {
       }
     )
   )
-
+*/
   // Set up google strategy
-  passport.use(
+ /* passport.use(
     new GoogleStrategy(
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
@@ -114,7 +114,7 @@ module.exports = app => {
         }
       }
     )
-  )
+  ) */
 
   passport.serializeUser((user, done) => {
     done(null, user.id)

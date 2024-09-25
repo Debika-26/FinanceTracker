@@ -9,7 +9,7 @@ const passport = require('passport')
 
 // Define routes
 // Facebook
-router.get(
+/*router.get(
   '/facebook',
   passport.authenticate('facebook', {
     scope: ['email', 'public_profile']
@@ -40,6 +40,6 @@ router.get(
     failureRedirect: '/users/login'
   })
 )
-
+*/
 // Export router
 module.exports = router

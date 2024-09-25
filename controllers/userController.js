@@ -109,6 +109,13 @@ const userController = {
       })
     }
   },
+  login: (req, res, next) => {
+    passport.authenticate('local', {
+      successRedirect: '/users/profile',
+      failureRedirect: '/users/login',
+      failureFlash: true
+    })(req, res, next);
+  },
   logout: (req, res) => {
     req.logout()
     req.flash('success_msg', 'logout successfully!')

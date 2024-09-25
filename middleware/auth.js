@@ -1,3 +1,11 @@
+const session = require('express-session');
+
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'default_secret', // Use your session secret from .env
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+}));
 module.exports = {
   authenticator: (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -9,3 +17,5 @@ module.exports = {
     res.redirect('/users/login')
   }
 }
+
+
